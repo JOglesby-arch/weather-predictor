@@ -156,6 +156,10 @@ cython_debug/
 
 # Ignore keys file with sensitive information
 keys.py
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
