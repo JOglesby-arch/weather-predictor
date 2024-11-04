@@ -2,6 +2,7 @@ from modules.api_handler import get_weather_data
 from modules.data_processing import parse_weather_data, calculate_summary
 from modules.visualization import create_summary_table, generate_temperature_plot
 from modules.geocoding import get_lat_long
+from modules.alerts_handler import fetch_weather_alerts
 
 def main():
     # Welcome message
@@ -24,6 +25,15 @@ def main():
     location = {"latitude": float(latitude), "longitude": float(longitude)}  # Prepare the location dictionary
     weather_data = get_weather_data(location, days)
     
+    # Fetch weather alerts using a UGC code (example code, I'll need to adjust it based on the input)
+    ugc_code = "YOUR_UGC_CODE"  # Need to determine the correct UGC code based on location
+    alerts = fetch_weather_alerts(ugc_code)
+    
+    if alerts:
+        print("Weather Alerts:")
+        for alert in alerts:
+            print(alert)  # Customize this based on what information you want to display
+
     if weather_data:
         # Parse and process data
         parsed_data = parse_weather_data(weather_data)
