@@ -23,9 +23,14 @@ def main():
 
             # Display alerts
             if alerts:
-                st.subheader("Weather Alerts")
+                st.subheader("Active Weather Alerts")
                 for alert in alerts:
-                    st.write(alert)
+                    st.write(f"**Title**: {alert['title']}")
+                    st.write(f"**Severity**: {alert['severity']}")
+                    st.write(f"**Area**: {alert['area']}")
+                    st.write(f"**Description**: {alert['description']}")
+                    st.write(f"**Effective**: {alert['effective']}")
+                    st.write(f"**Expires**: {alert['expires']}")
 
             # Process and display weather data (implement your display logic here)
         else:

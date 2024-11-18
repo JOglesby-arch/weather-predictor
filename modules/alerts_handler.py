@@ -19,6 +19,21 @@ def fetch_weather_alerts(ugc_code):
         zone_info = response.json()
         alerts = zone_info.get('alerts', [])
         return alerts
+    
+        # Severe weather alerts and add more structured information
+        for alert in alerts:
+            alert_info = {
+                'title': alert['properties']['headline'],
+                'severity': alert['properties']['severity'],
+                'area': alert['properties']['areaDesc'],
+                'description': alert['properties']['description'],
+                'effective': alert['properties']['effective'],
+                'expires': alert['properties']['expires']
+            }
+            formatted_alerts.append(alert_info)
+        return formatted_alerts
+
     else:
         print("Failed to retrieve alerts:", response.status_code)
         return []
+
