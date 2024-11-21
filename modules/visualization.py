@@ -4,6 +4,21 @@ import plotly.express as px
 import pandas as pd
 import streamlit as st  # Import Streamlit for displaying the plot
 
+def create_summary_table(summary):
+    if not summary:
+        st.error("No summary data available.")
+        return
+    
+    data = {
+        "Metric": ["Min Temperature (°C)", "Max Temperature (°C)", "Mean Temperature (°C)"],
+        "Value": [summary["min_temperature"], summary["max_temperature"], summary["mean_temperature"]]
+    }
+    df = pd.DataFrame(data)
+    
+    # Display the summary table using Streamlit
+    st.subheader("Weather Summary Table")
+    st.table(df)
+
 def generate_temperature_plot(weather_data):
     if not weather_data:
         st.error("No weather data available for plotting.")
