@@ -4,10 +4,20 @@ from urllib.parse import quote_plus
 def get_lat_long(address):
     """
     Fetch latitude and longitude for a given address using the Nominatim API.
+    Ensures proper formatting and handles edge cases.
     """
-    # URL encode the address and ensure we're querying for USA explicitly
-    encoded_address = quote_plus(address + ", USA")  # Ensure the address has ", USA"
+    # Trim leading/trailing whitespace and ensure proper formatting
+    address = address.strip()
+
+    # Validate city/state format (only letters, spaces, and commas allowed)
+    if not all(c.isalpha() or c.isspace() or c == ',' for c in address):
+        print("Invalid city/state format. Only letters, spaces, and commas are allowed.")
+        return None, None
+
+    # URL encode the address to handle spaces correctly (e.g., "San Francisco" -> "San+Francisco")
+    encoded_address = quote_plus(address)
     print(f"Querying geocoding API with address: {encoded_address}")  # Debugging output
+
     url = f"https://nominatim.openstreetmap.org/search?format=json&q={encoded_address}"
 
     try:
@@ -38,13 +48,15 @@ def get_lat_long(address):
         return None, None
 
 # Example usage:
-city = 'Milwaukee'
-state = 'Wisconsin'
+city = 'San Francisco'
+state = 'California'
 latitude, longitude = get_lat_long(f"{city}, {state}")
 
 if latitude and longitude:
     print(f'The latitude and longitude of {city}, {state} are {latitude}, {longitude}.')
 else:
     print(f'Could not find the latitude and longitude for {city}, {state}.')
+
+
 
 
